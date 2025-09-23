@@ -2,11 +2,21 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { useUser } from '@/contexts/UserContext'
+import { useRouter } from 'next/navigation'
 
 export default function CreatePostPage() {
+  const { user } = useUser()
+  const router = useRouter()
   const [content, setContent] = useState('')
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([])
   const [isGenerating, setIsGenerating] = useState(false)
+
+  // Redirect to login if no user
+  if (!user) {
+    router.push('/auth/login')
+    return null
+  }
 
   const platforms = [
     { id: 'twitter', name: 'Twitter', icon: '🐦', color: 'bg-blue-500' },
