@@ -1,0 +1,249 @@
+# AI-Powered Social Media Platform
+
+A comprehensive full-stack application that enables users to connect multiple social media accounts (Twitter, LinkedIn, Instagram), generate content using an AI chatbot, schedule posts through a calendar interface, and automatically publish content across platforms.
+
+## 🚀 Features
+
+- **Social Media Integration**: Secure OAuth connections to Twitter, LinkedIn, and Instagram
+- **AI Content Generation**: Context-aware chatbot that learns about your business to generate personalized content
+- **Smart Scheduling**: Intuitive calendar interface for planning and scheduling posts
+- **Automated Publishing**: Reliable posting with proper API compliance and retry mechanisms
+- **Dashboard Analytics**: Overview of connected accounts, scheduled posts, and basic performance insights
+- **Content Compliance**: Built-in checks to ensure content follows platform guidelines
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Next.js 14** with App Router
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **React Query** for state management
+- **React Hook Form** for form handling
+
+### Backend
+- **Node.js** with Express.js
+- **TypeScript** for consistency
+- **Prisma ORM** for database operations
+- **Bull Queue** for job processing
+- **JWT** for authentication
+
+### Database & Caching
+- **PostgreSQL** for primary data storage
+- **Redis** for caching and job queues
+
+### External APIs
+- **OpenAI GPT-4** for content generation
+- **Twitter API v2** for Twitter integration
+- **LinkedIn Marketing API** for LinkedIn integration
+- **Instagram Basic Display API** for Instagram integration
+
+## 📋 Prerequisites
+
+- Node.js 18+ 
+- PostgreSQL 15+
+- Redis 7+
+- Docker (optional, for containerized development)
+
+## 🚀 Quick Start
+
+### 1. Clone and Install
+
+```bash
+git clone <repository-url>
+cd ai-social-media-platform
+npm install
+```
+
+### 2. Environment Setup
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` with your configuration:
+
+```env
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/ai_social_media_platform"
+REDIS_URL="redis://localhost:6379"
+
+# Authentication
+JWT_SECRET="your-super-secret-jwt-key"
+JWT_REFRESH_SECRET="your-super-secret-refresh-key"
+ENCRYPTION_KEY="your-32-character-encryption-key"
+
+# OpenAI
+OPENAI_API_KEY="your-openai-api-key"
+
+# Social Media APIs
+TWITTER_CLIENT_ID="your-twitter-client-id"
+TWITTER_CLIENT_SECRET="your-twitter-client-secret"
+LINKEDIN_CLIENT_ID="your-linkedin-client-id"
+LINKEDIN_CLIENT_SECRET="your-linkedin-client-secret"
+INSTAGRAM_CLIENT_ID="your-instagram-client-id"
+INSTAGRAM_CLIENT_SECRET="your-instagram-client-secret"
+```
+
+### 3. Database Setup
+
+```bash
+# Start PostgreSQL and Redis (if using Docker)
+docker-compose up postgres redis -d
+
+# Generate Prisma client and run migrations
+npm run db:generate
+npm run db:migrate
+npm run db:seed
+```
+
+### 4. Development
+
+```bash
+# Start frontend (Next.js)
+npm run dev
+
+# Start backend API (in another terminal)
+npm run dev:api
+```
+
+Visit:
+- Frontend: http://localhost:3000
+- API: http://localhost:8000
+
+## 🐳 Docker Development
+
+```bash
+# Start all services
+docker-compose up
+
+# Or start in detached mode
+docker-compose up -d
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+## 📚 API Documentation
+
+### Authentication Endpoints
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `POST /api/auth/refresh` - Refresh access token
+- `POST /api/auth/logout` - User logout
+
+### Social Media Integration
+- `GET /api/social/accounts` - Get connected accounts
+- `POST /api/social/connect/:platform` - Connect social account
+- `DELETE /api/social/disconnect/:accountId` - Disconnect account
+
+### Content Generation
+- `POST /api/content/generate` - Generate content with AI
+- `GET /api/content/context` - Get business context
+- `PUT /api/content/context` - Update business context
+
+### Scheduling
+- `GET /api/posts/scheduled` - Get scheduled posts
+- `POST /api/posts/schedule` - Schedule a new post
+- `PUT /api/posts/:id` - Update scheduled post
+- `DELETE /api/posts/:id` - Delete scheduled post
+
+## 🔧 Configuration
+
+### Social Media API Setup
+
+#### Twitter API v2
+1. Create a Twitter Developer account
+2. Create a new app in the Twitter Developer Portal
+3. Enable OAuth 2.0 with PKCE
+4. Add redirect URI: `http://localhost:3000/api/auth/callback/twitter`
+
+#### LinkedIn Marketing API
+1. Create a LinkedIn Developer account
+2. Create a new app
+3. Request access to Marketing API
+4. Add redirect URI: `http://localhost:3000/api/auth/callback/linkedin`
+
+#### Instagram Basic Display API
+1. Create a Facebook Developer account
+2. Create a new app
+3. Add Instagram Basic Display product
+4. Add redirect URI: `http://localhost:3000/api/auth/callback/instagram`
+
+## 🚀 Deployment
+
+### Using Docker
+
+```bash
+# Build and run production containers
+docker-compose -f docker-compose.prod.yml up --build
+```
+
+### Manual Deployment
+
+```bash
+# Build the application
+npm run build
+npm run build:api
+
+# Start production servers
+npm run start &
+npm run start:api &
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                 # Next.js App Router pages
+├── components/          # React components
+│   ├── auth/           # Authentication components
+│   ├── calendar/       # Calendar and scheduling components
+│   ├── chat/           # AI chatbot components
+│   ├── dashboard/      # Dashboard components
+│   └── social/         # Social media integration components
+├── lib/                # Utility libraries
+├── server/             # Backend API server
+│   ├── controllers/    # API route handlers
+│   ├── middleware/     # Express middleware
+│   ├── services/       # Business logic services
+│   ├── db/            # Database configuration and models
+│   └── utils/         # Server utilities
+└── types/              # TypeScript type definitions
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+If you encounter any issues or have questions, please:
+
+1. Check the [Issues](https://github.com/your-repo/issues) page
+2. Create a new issue with detailed information
+3. Join our [Discord community](https://discord.gg/your-invite) for real-time support
+
+## 🙏 Acknowledgments
+
+- [OpenAI](https://openai.com/) for GPT-4 API
+- [Next.js](https://nextjs.org/) for the amazing React framework
+- [Prisma](https://prisma.io/) for the excellent ORM
+- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
