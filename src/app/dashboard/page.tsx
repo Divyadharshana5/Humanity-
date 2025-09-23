@@ -30,7 +30,9 @@ export default function DashboardPage() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <button className="btn-primary">Create Post</button>
+              <Link href="/dashboard/create" className="btn-primary">
+                Create Post
+              </Link>
 
               <div className="relative">
                 <div className="flex items-center space-x-3">
