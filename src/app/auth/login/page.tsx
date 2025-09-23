@@ -3,9 +3,11 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useUser } from '@/contexts/UserContext'
 
 export default function LoginPage() {
   const router = useRouter()
+  const { setUser } = useUser()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -27,6 +29,13 @@ export default function LoginPage() {
 
       // Simulate successful login
       if (formData.email && formData.password) {
+        // Store user data
+        const userName = formData.email.split('@')[0] // Extract name from email
+        setUser({
+          email: formData.email,
+          name: userName.charAt(0).toUpperCase() + userName.slice(1), // Capitalize first letter
+        })
+
         // Redirect to dashboard after successful login
         router.push('/dashboard')
       } else {
