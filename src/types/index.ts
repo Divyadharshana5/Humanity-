@@ -48,7 +48,7 @@ export interface SocialAccount {
 export enum Platform {
   TWITTER = 'twitter',
   LINKEDIN = 'linkedin',
-  INSTAGRAM = 'instagram'
+  INSTAGRAM = 'instagram',
 }
 
 // Content and Scheduling Types
@@ -87,12 +87,12 @@ export enum PostStatus {
   SCHEDULED = 'scheduled',
   PUBLISHING = 'publishing',
   PUBLISHED = 'published',
-  FAILED = 'failed'
+  FAILED = 'failed',
 }
 
 export enum PostType {
   DYNAMIC = 'dynamic',
-  STATIC = 'static'
+  STATIC = 'static',
 }
 
 // Publishing and Analytics Types
@@ -111,7 +111,7 @@ export enum PublishStatus {
   SUCCESS = 'success',
   FAILED = 'failed',
   RATE_LIMITED = 'rate_limited',
-  RETRYING = 'retrying'
+  RETRYING = 'retrying',
 }
 
 // API Response Types
