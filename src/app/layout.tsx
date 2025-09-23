@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'AI Social Media Platform',
-  description: 'AI-powered social media content creation and scheduling platform',
+  description:
+    'AI-powered social media content creation and scheduling platform',
 }
 
 export default function RootLayout({
