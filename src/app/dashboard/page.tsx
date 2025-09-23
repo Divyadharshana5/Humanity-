@@ -2,13 +2,12 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { useUser } from '@/contexts/UserContext'
+import { useRouter } from 'next/navigation'
 
 export default function DashboardPage() {
-  const [user] = useState({
-    name: 'John Doe',
-    email: 'john@example.com',
-    avatar: '/api/placeholder/40/40',
-  })
+  const { user, logout } = useUser()
+  const router = useRouter()
 
   const [stats] = useState({
     totalPosts: 24,
@@ -16,6 +15,17 @@ export default function DashboardPage() {
     publishedPosts: 16,
     connectedAccounts: 3,
   })
+
+  const handleLogout = () => {
+    logout()
+    router.push('/')
+  }
+
+  // Redirect to login if no user
+  if (!user) {
+    router.push('/auth/login')
+    return null
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -38,10 +48,7 @@ export default function DashboardPage() {
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
                     <span className="text-sm font-medium text-primary-600">
-                      {user.name
-                        .split(' ')
-                        .map(n => n[0])
-                        .join('')}
+                      {user.name.charAt(0).toUpperCase()}
                     </span>
                   </div>
                   <div className="hidden md:block">
@@ -50,13 +57,13 @@ export default function DashboardPage() {
                     </p>
                     <p className="text-xs text-gray-500">{user.email}</p>
                   </div>
-                  <Link
-                    href="/"
+                  <button
+                    onClick={handleLogout}
                     className="text-sm text-gray-500 hover:text-gray-700 ml-4"
                     title="Sign Out"
                   >
                     Sign Out
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -69,7 +76,7 @@ export default function DashboardPage() {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Welcome back, {user.name.split(' ')[0]}!
+            Welcome back, {user.name}!
           </h2>
           <p className="text-gray-600">
             Here&apos;s what&apos;s happening with your social media accounts
@@ -214,7 +221,9 @@ export default function DashboardPage() {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">Twitter</p>
-                    <p className="text-xs text-gray-500">@johndoe</p>
+                    <p className="text-xs text-gray-500">
+                      @{user.name.toLowerCase()}
+                    </p>
                   </div>
                 </div>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -237,7 +246,7 @@ export default function DashboardPage() {
                     <p className="text-sm font-medium text-gray-900">
                       LinkedIn
                     </p>
-                    <p className="text-xs text-gray-500">John Doe</p>
+                    <p className="text-xs text-gray-500">{user.name}</p>
                   </div>
                 </div>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -260,7 +269,9 @@ export default function DashboardPage() {
                     <p className="text-sm font-medium text-gray-900">
                       Instagram
                     </p>
-                    <p className="text-xs text-gray-500">@johndoe</p>
+                    <p className="text-xs text-gray-500">
+                      @{user.name.toLowerCase()}
+                    </p>
                   </div>
                 </div>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
