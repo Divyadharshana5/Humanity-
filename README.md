@@ -38,31 +38,28 @@ Create an intuitive social media management platform that empowers users to:
 
 ### Frontend
 
-- **Next.js 14** with App Router
-- **TypeScript** for type safety
-- **Tailwind CSS** for styling
-- **React Query** for state management
-- **React Hook Form** for form handling
+- **Next.js 14** with App Router - React framework for production
+- **TypeScript** - Type safety and better developer experience
+- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
+- **React Context API** - Global state management for user authentication
+- **React Hooks** - Modern React patterns for state and lifecycle management
 
-### Backend
+### Development Tools
 
-- **Node.js** with Express.js
-- **TypeScript** for consistency
-- **Prisma ORM** for database operations
-- **Bull Queue** for job processing
-- **JWT** for authentication
+- **ESLint** - Code linting and quality assurance
+- **Prettier** - Code formatting
+- **Jest** - Testing framework (configured)
+- **Git** - Version control
 
-### Database & Caching
+### Planned Integrations
 
-- **PostgreSQL** for primary data storage
-- **Redis** for caching and job queues
-
-### External APIs
-
-- **OpenAI GPT-4** for content generation
-- **Twitter API v2** for Twitter integration
-- **LinkedIn Marketing API** for LinkedIn integration
-- **Instagram Basic Display API** for Instagram integration
+- **OpenAI GPT-4** - AI content generation
+- **Twitter API v2** - Twitter integration
+- **LinkedIn Marketing API** - LinkedIn integration
+- **Instagram Basic Display API** - Instagram integration
+- **Node.js/Express** - Backend API server
+- **PostgreSQL** - Database for user data and posts
+- **Redis** - Caching and job queues
 
 ## 📋 Prerequisites
 
