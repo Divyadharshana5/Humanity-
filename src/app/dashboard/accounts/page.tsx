@@ -1,19 +1,14 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
 import { useUser } from '@/contexts/UserContext'
+import { useData } from '@/contexts/DataContext'
 import { useRouter } from 'next/navigation'
 
 export default function AccountsPage() {
   const { user } = useUser()
+  const { accounts, updateAccount } = useData()
   const router = useRouter()
-
-  const [accounts, setAccounts] = useState([
-    { platform: 'twitter', connected: true, username: '@johndoe' },
-    { platform: 'linkedin', connected: true, username: 'John Doe' },
-    { platform: 'instagram', connected: false, username: '' },
-  ])
 
   if (!user) {
     router.push('/auth/login')
@@ -21,23 +16,11 @@ export default function AccountsPage() {
   }
 
   const handleConnect = (platform: string) => {
-    setAccounts(prev =>
-      prev.map(acc =>
-        acc.platform === platform
-          ? { ...acc, connected: true, username: `@${user.name.toLowerCase()}` }
-          : acc
-      )
-    )
+    updateAccount(platform, true, `@${user?.name.toLowerCase()}`)
   }
 
   const handleDisconnect = (platform: string) => {
-    setAccounts(prev =>
-      prev.map(acc =>
-        acc.platform === platform
-          ? { ...acc, connected: false, username: '' }
-          : acc
-      )
-    )
+    updateAccount(platform, false)
   }
 
   return (
