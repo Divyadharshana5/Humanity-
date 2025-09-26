@@ -43,29 +43,60 @@ export default function CreatePostPage() {
 
     setIsGenerating(true)
 
-    const contentTemplates = {
-      'product launch':
-        '🚀 Exciting news! Just launched our new product. Experience innovation like never before. #ProductLaunch #Innovation #NewProduct',
-      'company update':
-        "📢 Company Update: We're thrilled to share our latest milestone and what's coming next. #CompanyNews #Growth #Updates",
-      'team achievement':
-        "🎉 Celebrating our amazing team's latest achievement! Proud of what we've accomplished together. #TeamWork #Success #Achievement",
-      'industry insights':
-        "💡 Industry Insights: Here's what we're seeing in the market and our thoughts on upcoming trends. #Industry #Insights #Trends",
-      'behind the scenes':
-        '👀 Behind the scenes: Take a look at how we make the magic happen every day. #BehindTheScenes #Process #Team',
-      'customer success':
-        '⭐ Customer Success Story: Amazing results achieved by our valued clients. #CustomerSuccess #Results #Testimonial',
+    const platformTemplates = {
+      twitter: {
+        'product launch':
+          "🚀 Just dropped something amazing! Our new product is here and it's game-changing. Ready to experience the future? #ProductLaunch #Innovation #NewProduct",
+        'company update':
+          "📢 Big news from our team! Exciting updates and what's next on our journey. Stay tuned! #CompanyNews #Updates #Growth",
+        'team achievement':
+          '🎉 Shoutout to our incredible team! Another milestone crushed. Teamwork makes the dream work! #TeamWork #Success #Achievement',
+        'industry insights':
+          "💡 Industry take: Here's what we're seeing and why it matters. Thoughts? #Industry #Insights #Trends",
+        'behind the scenes':
+          "👀 BTS: Ever wonder how we make the magic happen? Here's a peek behind the curtain! #BehindTheScenes #Process",
+        'customer success':
+          '⭐ Customer win! Amazing results that speak for themselves. This is why we do what we do! #CustomerSuccess #Results',
+      },
+      linkedin: {
+        'product launch':
+          "🚀 We're excited to announce the launch of our latest product innovation. This represents months of dedicated development and customer feedback integration. #ProductLaunch #Innovation #ProfessionalGrowth",
+        'company update':
+          "📢 Company Update: We're pleased to share our latest organizational developments and strategic initiatives for the upcoming quarter. #CompanyNews #Leadership #Growth",
+        'team achievement':
+          "🎉 Recognizing our exceptional team's outstanding achievement. Their dedication and collaborative spirit continue to drive our success. #TeamWork #ProfessionalExcellence #Achievement",
+        'industry insights':
+          '💡 Industry Analysis: Sharing our perspective on current market trends and their implications for business strategy. #Industry #BusinessInsights #Strategy',
+        'behind the scenes':
+          '👀 Operational Excellence: A glimpse into our processes and methodologies that drive consistent results. #Operations #Process #Excellence',
+        'customer success':
+          '⭐ Client Success Story: Demonstrating measurable outcomes and the value of strategic partnership. #CustomerSuccess #ROI #Partnership',
+      },
+      instagram: {
+        'product launch':
+          "🚀✨ NEW DROP ALERT! ✨ Our latest creation is finally here and we can't contain our excitement! Swipe to see the magic ➡️ #ProductLaunch #NewDrop #Innovation #Excited",
+        'company update':
+          "📢💫 BIG ANNOUNCEMENT! 💫 So much happening behind the scenes and we're ready to share it all with you! Stay tuned for more ✨ #CompanyNews #BigNews #Updates #Excited",
+        'team achievement':
+          "🎉🙌 TEAM WIN! 🙌 Our amazing crew did it again! So proud of what we've accomplished together 💪✨ #TeamWork #Success #ProudMoment #Achievement",
+        'industry insights':
+          "💡🔥 INDUSTRY TALK 🔥 Here's what we're seeing and loving in our space right now! What do you think? 💭✨ #Industry #Insights #Trends #ThoughtLeader",
+        'behind the scenes':
+          "👀✨ BTS MAGIC ✨ Ever wondered how we create the magic? Here's your exclusive peek! 🎬💫 #BehindTheScenes #Process #Exclusive #Magic",
+        'customer success':
+          '⭐💖 SUCCESS STORY! 💖 When our clients win, we ALL win! These results speak for themselves 📈✨ #CustomerSuccess #Results #Winning #Grateful',
+      },
     }
 
     setTimeout(() => {
       const lowerPrompt = prompt.toLowerCase()
-      let generatedContent =
-        '✨ AI-generated content based on your input: ' +
-        prompt +
-        ' #AI #Content #SocialMedia'
+      const platform = selectedPlatform || 'twitter'
+      const templates =
+        platformTemplates[platform as keyof typeof platformTemplates]
 
-      for (const [key, template] of Object.entries(contentTemplates)) {
+      let generatedContent = `✨ ${prompt} #AI #Content #SocialMedia`
+
+      for (const [key, template] of Object.entries(templates)) {
         if (lowerPrompt.includes(key.replace(' ', ''))) {
           generatedContent = template
           break
@@ -78,7 +109,7 @@ export default function CreatePostPage() {
   }
 
   const handlePublish = () => {
-    if (content.trim() && selectedPlatforms.length > 0) {
+    if (content.trim() && selectedPlatform) {
       addPost({
         content: content.trim(),
         platforms: [selectedPlatform],
