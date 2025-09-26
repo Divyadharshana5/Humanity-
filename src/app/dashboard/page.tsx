@@ -1,20 +1,21 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
 import { useUser } from '@/contexts/UserContext'
+import { useData } from '@/contexts/DataContext'
 import { useRouter } from 'next/navigation'
 
 export default function DashboardPage() {
   const { user, logout } = useUser()
+  const { posts, accounts } = useData()
   const router = useRouter()
 
-  const [stats] = useState({
-    totalPosts: 0,
-    scheduledPosts: 0,
-    publishedPosts: 0,
-    connectedAccounts: 0,
-  })
+  const stats = {
+    totalPosts: posts.length,
+    scheduledPosts: posts.filter(p => p.status === 'scheduled').length,
+    publishedPosts: posts.filter(p => p.status === 'published').length,
+    connectedAccounts: accounts.filter(a => a.connected).length,
+  }
 
   const handleLogout = () => {
     logout()
