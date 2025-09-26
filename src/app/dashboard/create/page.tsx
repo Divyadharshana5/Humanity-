@@ -11,7 +11,7 @@ export default function CreatePostPage() {
   const { addPost } = useData()
   const router = useRouter()
   const [content, setContent] = useState('')
-  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([])
+  const [selectedPlatform, setSelectedPlatform] = useState<string>('')
   const [isGenerating, setIsGenerating] = useState(false)
   const [prompt, setPrompt] = useState('')
 
@@ -32,12 +32,8 @@ export default function CreatePostPage() {
     },
   ]
 
-  const handlePlatformToggle = (platformId: string) => {
-    setSelectedPlatforms(prev =>
-      prev.includes(platformId)
-        ? prev.filter(id => id !== platformId)
-        : [...prev, platformId]
-    )
+  const handlePlatformSelect = (platformId: string) => {
+    setSelectedPlatform(platformId)
   }
 
   const handleGenerateContent = async () => {
@@ -83,7 +79,7 @@ export default function CreatePostPage() {
     if (content.trim() && selectedPlatforms.length > 0) {
       addPost({
         content: content.trim(),
-        platforms: selectedPlatforms,
+        platforms: [selectedPlatform],
         scheduledDate: new Date(),
         status: 'published',
       })
@@ -228,11 +224,11 @@ export default function CreatePostPage() {
                   <div
                     key={platform.id}
                     className={`flex items-center p-3 rounded-lg border-2 cursor-pointer transition-colors ${
-                      selectedPlatforms.includes(platform.id)
+                      selectedPlatform === platform.id
                         ? 'border-primary-500 bg-primary-50'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
-                    onClick={() => handlePlatformToggle(platform.id)}
+                    onClick={() => handlePlatformSelect(platform.id)}
                   >
                     <div
                       className={`w-8 h-8 ${platform.color} rounded-lg flex items-center justify-center text-white mr-3`}
@@ -246,12 +242,12 @@ export default function CreatePostPage() {
                     </div>
                     <div
                       className={`w-4 h-4 rounded-full border-2 ${
-                        selectedPlatforms.includes(platform.id)
+                        selectedPlatform === platform.id
                           ? 'bg-primary-500 border-primary-500'
                           : 'border-gray-300'
                       }`}
                     >
-                      {selectedPlatforms.includes(platform.id) && (
+                      {selectedPlatform === platform.id && (
                         <svg
                           className="w-3 h-3 text-white"
                           fill="currentColor"
@@ -321,7 +317,7 @@ export default function CreatePostPage() {
             <div className="space-y-3">
               <button
                 onClick={handlePublish}
-                disabled={!content.trim() || selectedPlatforms.length === 0}
+                disabled={!content.trim() || !selectedPlatform}
                 className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 🚀 Publish Post
