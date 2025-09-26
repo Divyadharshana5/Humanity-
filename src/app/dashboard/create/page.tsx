@@ -13,6 +13,7 @@ export default function CreatePostPage() {
   const [content, setContent] = useState('')
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([])
   const [isGenerating, setIsGenerating] = useState(false)
+  const [prompt, setPrompt] = useState('')
 
   // Redirect to login if no user
   if (!user) {
@@ -40,12 +41,40 @@ export default function CreatePostPage() {
   }
 
   const handleGenerateContent = async () => {
+    if (!prompt.trim()) return
+
     setIsGenerating(true)
-    // Simulate AI content generation
+
+    const contentTemplates = {
+      'product launch':
+        '🚀 Exciting news! Just launched our new product. Experience innovation like never before. #ProductLaunch #Innovation #NewProduct',
+      'company update':
+        "📢 Company Update: We're thrilled to share our latest milestone and what's coming next. #CompanyNews #Growth #Updates",
+      'team achievement':
+        "🎉 Celebrating our amazing team's latest achievement! Proud of what we've accomplished together. #TeamWork #Success #Achievement",
+      'industry insights':
+        "💡 Industry Insights: Here's what we're seeing in the market and our thoughts on upcoming trends. #Industry #Insights #Trends",
+      'behind the scenes':
+        '👀 Behind the scenes: Take a look at how we make the magic happen every day. #BehindTheScenes #Process #Team',
+      'customer success':
+        '⭐ Customer Success Story: Amazing results achieved by our valued clients. #CustomerSuccess #Results #Testimonial',
+    }
+
     setTimeout(() => {
-      setContent(
-        '🚀 Exciting news! Just launched our new AI-powered social media platform. Generate, schedule, and publish content across all your favorite platforms with ease. #AI #SocialMedia #Innovation'
-      )
+      const lowerPrompt = prompt.toLowerCase()
+      let generatedContent =
+        '✨ AI-generated content based on your input: ' +
+        prompt +
+        ' #AI #Content #SocialMedia'
+
+      for (const [key, template] of Object.entries(contentTemplates)) {
+        if (lowerPrompt.includes(key.replace(' ', ''))) {
+          generatedContent = template
+          break
+        }
+      }
+
+      setContent(generatedContent)
       setIsGenerating(false)
     }, 2000)
   }
@@ -100,6 +129,8 @@ export default function CreatePostPage() {
                     What would you like to post about?
                   </label>
                   <textarea
+                    value={prompt}
+                    onChange={e => setPrompt(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     rows={3}
                     placeholder="Describe your post idea, product launch, company update, etc..."
