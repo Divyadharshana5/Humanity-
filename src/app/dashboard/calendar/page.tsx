@@ -1,32 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
 import { useUser } from '@/contexts/UserContext'
+import { useData } from '@/contexts/DataContext'
 import { useRouter } from 'next/navigation'
 
 export default function SchedulePage() {
   const { user } = useUser()
+  const { posts } = useData()
   const router = useRouter()
   const [selectedDate, setSelectedDate] = useState(new Date())
 
-  // Mock scheduled posts data
-  const [scheduledPosts] = useState([
-    {
-      id: 1,
-      content: 'Excited to share our latest product update! 🚀',
-      platforms: ['twitter', 'linkedin'],
-      scheduledDate: new Date(2024, 11, 25, 10, 0),
-      status: 'scheduled',
-    },
-    {
-      id: 2,
-      content: 'Behind the scenes of our development process',
-      platforms: ['instagram', 'linkedin'],
-      scheduledDate: new Date(2024, 11, 26, 14, 30),
-      status: 'scheduled',
-    },
-  ])
+  const scheduledPosts = posts.filter(p => p.status === 'scheduled')
 
   if (!user) {
     router.push('/auth/login')
