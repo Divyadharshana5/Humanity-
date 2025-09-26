@@ -3,10 +3,12 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useUser } from '@/contexts/UserContext'
+import { useData } from '@/contexts/DataContext'
 import { useRouter } from 'next/navigation'
 
 export default function CreatePostPage() {
   const { user } = useUser()
+  const { addPost } = useData()
   const router = useRouter()
   const [content, setContent] = useState('')
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([])
@@ -49,8 +51,15 @@ export default function CreatePostPage() {
   }
 
   const handlePublish = () => {
-    // Handle post publishing logic here
-    alert('Post published successfully!')
+    if (content.trim() && selectedPlatforms.length > 0) {
+      addPost({
+        content: content.trim(),
+        platforms: selectedPlatforms,
+        scheduledDate: new Date(),
+        status: 'published',
+      })
+      router.push('/dashboard')
+    }
   }
 
   return (
