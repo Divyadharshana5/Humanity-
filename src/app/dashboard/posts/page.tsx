@@ -1,48 +1,14 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
 import { useUser } from '@/contexts/UserContext'
+import { useData } from '@/contexts/DataContext'
 import { useRouter } from 'next/navigation'
 
 export default function PostsPage() {
   const { user } = useUser()
+  const { activities } = useData()
   const router = useRouter()
-
-  const [activities] = useState([
-    {
-      id: 1,
-      type: 'published',
-      platform: 'twitter',
-      content: 'Just launched our new feature! 🚀',
-      timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-      status: 'success',
-    },
-    {
-      id: 2,
-      type: 'scheduled',
-      platform: 'linkedin',
-      content: 'Behind the scenes of our development process',
-      timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
-      status: 'pending',
-    },
-    {
-      id: 3,
-      type: 'generated',
-      platform: 'instagram',
-      content: 'AI-generated content for our latest campaign',
-      timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000),
-      status: 'draft',
-    },
-    {
-      id: 4,
-      type: 'published',
-      platform: 'linkedin',
-      content: 'Excited to share our quarterly results',
-      timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000),
-      status: 'success',
-    },
-  ])
 
   if (!user) {
     router.push('/auth/login')
