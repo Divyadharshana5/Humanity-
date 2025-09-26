@@ -12,8 +12,8 @@ export default function DashboardPage() {
   const [stats] = useState({
     totalPosts: 0,
     scheduledPosts: 0,
-    publishedPosts: 16,
-    connectedAccounts: 3,
+    publishedPosts: 0,
+    connectedAccounts: 0,
   })
 
   const handleLogout = () => {
