@@ -14,6 +14,8 @@ export default function CreatePostPage() {
   const [selectedPlatform, setSelectedPlatform] = useState<string>('')
   const [isGenerating, setIsGenerating] = useState(false)
   const [prompt, setPrompt] = useState('')
+  const [scheduleTime, setScheduleTime] = useState('12:00')
+  const [amPm, setAmPm] = useState('AM')
 
   // Redirect to login if no user
   if (!user) {
@@ -305,10 +307,22 @@ export default function CreatePostPage() {
                     type="date"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
                   />
-                  <input
-                    type="time"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
-                  />
+                  <div className="flex space-x-2">
+                    <input
+                      type="time"
+                      value={scheduleTime}
+                      onChange={e => setScheduleTime(e.target.value)}
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
+                    />
+                    <select
+                      value={amPm}
+                      onChange={e => setAmPm(e.target.value)}
+                      className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
+                    >
+                      <option value="AM">AM</option>
+                      <option value="PM">PM</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
