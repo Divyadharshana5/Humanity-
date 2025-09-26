@@ -10,8 +10,8 @@ export default function DashboardPage() {
   const router = useRouter()
 
   const [stats] = useState({
-    totalPosts: 24,
-    scheduledPosts: 8,
+    totalPosts: 0,
+    scheduledPosts: 0,
     publishedPosts: 16,
     connectedAccounts: 3,
   })
