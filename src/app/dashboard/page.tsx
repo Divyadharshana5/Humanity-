@@ -209,7 +209,12 @@ export default function DashboardPage() {
             </div>
 
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <a
+                href="https://x.com/?lang=en-in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              >
                 <div className="flex items-center">
                   <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
                     <svg
@@ -230,9 +235,14 @@ export default function DashboardPage() {
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                   Connected
                 </span>
-              </div>
+              </a>
 
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              >
                 <div className="flex items-center">
                   <div className="w-8 h-8 bg-blue-700 rounded-lg flex items-center justify-center">
                     <svg
@@ -253,9 +263,14 @@ export default function DashboardPage() {
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                   Connected
                 </span>
-              </div>
+              </a>
 
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              >
                 <div className="flex items-center">
                   <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                     <svg
@@ -278,7 +293,7 @@ export default function DashboardPage() {
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                   Connected
                 </span>
-              </div>
+              </a>
             </div>
           </div>
 
